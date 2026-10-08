@@ -40,6 +40,15 @@ In this repository:
 | `lbs_landuse_composition.csv` | Area (ha) inside the LBS mask by 2022 parcel land-use class (11 classes), per scene. |
 | `coverage_domain.csv` | Per scene: LBS area, parcel area recorded outside the LBS perimeter, the part of that area not classified as paddy, the surrounding kecamatan area, and two ratios. |
 | `sensitivity_lainlain.csv` | Precision and IoU per scene as published, then recomputed with the undefined class Lain-lain removed from the comparison domain. |
+| `georeference.csv` | Affine coefficients, grid size and CRS per scene, derived from the supplied originals. |
+| `<SCENE>_agreement.tif` | Per-pixel 2022 agreement for the paired mask: 0 no parcel record, 1 paddy in LBS, 2 sugarcane in LBS, 3 Lain-lain in LBS, 4 other class in LBS, 5 paddy outside LBS, 6 mapped non-paddy outside LBS. |
+| `agreement_codes.csv` | Pixel counts per agreement code, per scene, plus the LBS share mapped by parcels. |
+| `lbs_coverage.csv` | Per scene: LBS area, share mapped by the parcel inventory, unmapped area, A and B areas, overlap inside LBS. |
+| `scripts/agreement_raster.py` | Rebuilds the agreement rasters from the parcel layer. Needs the original inputs. |
+| `scripts/lbs_coverage.py` | Recomputes `lbs_coverage.csv` from the original vectors. |
+| `<SCENE>_mask.tfw`, `<SCENE>_mask.prj`, `<SCENE>_mask.tif.aux.xml` | Georeferencing for the paired mask: world file, projection (EPSG:4326) and PAM sidecar. |
+| `scripts/apply_georeference.py` | Attaches the released georeference to a mask or to a scene: `python scripts/apply_georeference.py <file.tif>`. Needs `rasterio`. |
+| `scripts/georeference_export.py` | Rebuilds `georeference.csv` and the sidecars from the original scenes. Needs the originals. |
 | `checksums.sha256` | SHA-256 of every `.tif`. Verify with `sha256sum -c checksums.sha256`. |
 | `scripts/make_mask.py` | The rasterization used to make the masks (pixel-centre rule). Needs the original georeferenced imagery and LBS vectors, which are not published. |
 | `scripts/scene_statistics.py` | Recomputes `scene_statistics.csv` from the Figshare `.tif` files: `python scripts/scene_statistics.py <folder with the .tif files>`. Needs `rasterio` and `numpy`. |
@@ -58,10 +67,11 @@ The scenes are large (up to 1.18 gigapixels, 13.5 GB). Read them in windows (`ra
 
 ## Notes
 
-- **No geolocation.** The files carry no coordinate reference system, geotransform, GCPs or RPCs (rasterio reports an identity transform and a `NotGeoreferencedWarning`). This is deliberate: exact field locations are withheld. They cannot be overlaid on maps.
+- **No geolocation embedded.** The mask files carry no coordinate reference system or geotransform (rasterio reports an identity transform and a `NotGeoreferencedWarning`). The transform for each scene is supplied separately, as `<SCENE>_mask.tfw`, `<SCENE>_mask.prj`, `<SCENE>_mask.tif.aux.xml`, and together in `georeference.csv`. Put the sidecars next to the mask and GIS software will place it, or bake the transform in with `python scripts/apply_georeference.py <file.tif>`. A scene transform locates the rectangle, not the parcels inside it.
 - **Photometric tag.** The raw files are tagged MinIsBlack with three samples, not RGB, so some viewers show only band 1. Read the bands explicitly.
 - **Band order.** Bands are unnamed in the source and are assumed to be R, G, B.
 - **Mask rule.** A pixel is paddy only if its centre lies inside an LBS polygon (`rasterio.features.rasterize`, `all_touched=False`). Re-running `scripts/make_mask.py` on the original inputs reproduces the published masks with zero differing pixels.
+- **Agreement raster.** `<SCENE>_agreement.tif` carries the same grid and the same pixel-centre rule, but codes the 2022 parcel record: 0 no parcel, 1 paddy agreement, 2 sugarcane, 3 Lain-lain, 4 other class, 5 paddy outside LBS, 6 mapped non-paddy outside LBS. It is a label-quality layer, not a reference: the 2022 inventory is not ground truth. Pixel area in this grid is not exactly 0.25 m² (0.247 m² at 8.4°S), so use `label_agreement_matrix.csv` for hectares and the raster for sampling and masking.
 - **Masks on no-data.** Masks are defined over the full scene rectangle, including no-data image areas. A small number of paddy pixels fall on no-data (at most 1.0% of a scene's paddy pixels, in Leuwidamar); see `paddy_px_on_nodata` in `scene_statistics.csv`. Mask them out with the image no-data before training.
 - **Acquisition metadata** (dates, Pléiades 1A/1B, processing level) was not supplied with the imagery and is not available. What the files show: the imagery predates October 2022; the ≈0.5 m pixel size fits pan-sharpened Pléiades 1A/1B; values reach up to 5722, above the 12-bit sensor range, so the digital numbers of the supplied product were rescaled during processing. Do not treat them as radiance or reflectance.
 

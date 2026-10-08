@@ -1,0 +1,41 @@
+scene,code,name,pixels,pct_of_grid,unclassed_parcels
+BANGLI_SUSUT,0,unmapped,345117868,89.42,0
+BANGLI_SUSUT,1,A paddy in LBS,33293292,8.626,0
+BANGLI_SUSUT,2,B sugarcane in LBS,0,0.0,0
+BANGLI_SUSUT,3,B Lain-lain in LBS,2099852,0.544,0
+BANGLI_SUSUT,4,B other class in LBS,1147815,0.297,0
+BANGLI_SUSUT,5,C paddy outside LBS,1977990,0.512,0
+BANGLI_SUSUT,6,mapped non-paddy outside LBS,2313363,0.599,0
+BANGLI_SUSUT,-1,LBS mapped by parcels (raster),36540959,100.0,0
+KULONPROGO_GALUR,0,unmapped,198470804,76.321,0
+KULONPROGO_GALUR,1,A paddy in LBS,44769722,17.216,0
+KULONPROGO_GALUR,2,B sugarcane in LBS,122480,0.047,0
+KULONPROGO_GALUR,3,B Lain-lain in LBS,2564179,0.986,0
+KULONPROGO_GALUR,4,B other class in LBS,194120,0.075,0
+KULONPROGO_GALUR,5,C paddy outside LBS,13912863,5.35,0
+KULONPROGO_GALUR,6,mapped non-paddy outside LBS,14810,0.006,0
+KULONPROGO_GALUR,-1,LBS mapped by parcels (raster),47650501,100.0,0
+LEUWIDAMAR,0,unmapped,1114524497,94.716,0
+LEUWIDAMAR,1,A paddy in LBS,42790814,3.636,0
+LEUWIDAMAR,2,B sugarcane in LBS,0,0.0,0
+LEUWIDAMAR,3,B Lain-lain in LBS,12286840,1.044,0
+LEUWIDAMAR,4,B other class in LBS,1195788,0.102,0
+LEUWIDAMAR,5,C paddy outside LBS,5061853,0.43,0
+LEUWIDAMAR,6,mapped non-paddy outside LBS,844830,0.072,0
+LEUWIDAMAR,-1,LBS mapped by parcels (raster),56273442,99.977,0
+SITUBONDO_SITUBONDO,0,unmapped,366444568,89.7,0
+SITUBONDO_SITUBONDO,1,A paddy in LBS,18728501,4.584,0
+SITUBONDO_SITUBONDO,2,B sugarcane in LBS,10435911,2.555,0
+SITUBONDO_SITUBONDO,3,B Lain-lain in LBS,1007090,0.247,0
+SITUBONDO_SITUBONDO,4,B other class in LBS,953343,0.233,0
+SITUBONDO_SITUBONDO,5,C paddy outside LBS,7497988,1.835,0
+SITUBONDO_SITUBONDO,6,mapped non-paddy outside LBS,3454101,0.846,0
+SITUBONDO_SITUBONDO,-1,LBS mapped by parcels (raster),31124845,100.0,0
+Tangerang_Sepatan_Timur,0,unmapped,96528925,70.676,0
+Tangerang_Sepatan_Timur,1,A paddy in LBS,33224860,24.326,0
+Tangerang_Sepatan_Timur,2,B sugarcane in LBS,0,0.0,0
+Tangerang_Sepatan_Timur,3,B Lain-lain in LBS,2245251,1.644,0
+Tangerang_Sepatan_Timur,4,B other class in LBS,1454605,1.065,0
+Tangerang_Sepatan_Timur,5,C paddy outside LBS,1983385,1.452,0
+Tangerang_Sepatan_Timur,6,mapped non-paddy outside LBS,1143254,0.837,0
+Tangerang_Sepatan_Timur,-1,LBS mapped by parcels (raster),36924716,99.998,0
